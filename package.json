@@ -1,34 +1,28 @@
 {
-  "name": "unit10hw",
+  "name": "homework_10",
   "version": "1.0.0",
-  "description": "OOP and testing for week 10 homework",
+  "description": "One of the most important aspects of programming is writing code that is readable, reliable, and maintainable. Oftentimes, _how_ we design our code is just as important as the code itself. In this homework assignment, your challenge is to build a Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person. Since testing is a key piece in making code maintainable, you will also be ensuring that all unit tests pass.",
   "main": "app.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "test": "jest --verbose test/*",
-    "start": "node server.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stevetrilogy/unit10hw.git"
+    "url": "git+https://github.com/jessicamenius/10homework.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stevetrilogy/unit10hw/issues"
+    "url": "https://github.com/jessicamenius/10homework/issues"
   },
-  "homepage": "https://github.com/stevetrilogy/unit10hw#readme",
+  "homepage": "https://github.com/jessicamenius/10homework#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "inquirer": "^6.5.2",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "jest": "^24.9.0"
-  },
-  "keywords": []
+    "inquirer": "^7.2.0",
+    "jest": "^26.1.0"
+  }
 }
