@@ -10,40 +10,42 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-let employees = [];
+const employees = [];
 
-inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "Please enter your name",
-      name: "name",
-    },
-    {
-      type: "input",
-      message: "Please provide the manager's ID",
-      name: "employeeId",
-    },
-    {
-      type: "input",
-      message: "Please provide the manager's email address",
-      name: "email",
-    },
-    {
-      type: "input",
-      message: "Please provide the manager's office number",
-      name: "officeNumber",
-    },
-  ])
-  .then((res) => {
-    employees.push(
-      new Manager(res.manager, res.employeeId, res.email, res.officeNumber)
-    );
-    employeeType();
-    // create  a new instance of the manager class
-    // set the name id email and office number
-    // push to the employees array
-  });
+// Write code to use inquirer to gather information about the development team members,
+// and to create objects for each team member (using the correct classes as blueprints!)
+
+function createEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please enter your name",
+        name: "name",
+      },
+      {
+        type: "input",
+        message: "Please provide the manager's ID",
+        name: "id",
+      },
+      {
+        type: "input",
+        message: "Please provide the manager's email address",
+        name: "email",
+      },
+      {
+        type: "input",
+        message: "Please provide the manager's office number",
+        name: "officeNumber",
+      },
+    ])
+    .then((res) => {
+      employees.push(
+        new Manager(res.name, res.id, res.email, res.officeNumber)
+      );
+      employeeType();
+    });
+}
 
 function employeeType() {
   // ask the type of employee that the user wants to add
@@ -53,19 +55,18 @@ function employeeType() {
       {
         type: "list",
         message: "Please select the employee type to create",
-        name: "employeeType",
+        name: "role",
         choices: ["Engineer", "Intern", "Exit"],
       },
     ])
     .then((res) => {
-      const { employeeType } = res;
-      if (employeeType === "Engineer") {
+      if (res.role === "Engineer") {
         createEngineer();
       }
-      if (employeeType === "Intern") {
+      if (res.role === "Intern") {
         createIntern();
       }
-      if (employeeType === "Done") {
+      if (res.role === "Done") {
         createHTML();
       }
     });
@@ -77,17 +78,17 @@ function createEngineer() {
       {
         type: "input",
         message: "Please enter engineer name",
-        name: "engineerName",
+        name: "name",
       },
       {
         type: "input",
         message: "Please enter engineer ID",
-        name: "engineerId",
+        name: "id",
       },
       {
         type: "input",
         message: "Please provide the engineer's email",
-        name: "engineerEmail",
+        name: "email",
       },
       {
         type: "input",
@@ -96,14 +97,7 @@ function createEngineer() {
       },
     ])
     .then((res) => {
-      employees.push(
-        new Engineer(
-          res.engineerName,
-          res.engineerId,
-          res.engineerEmail,
-          res.github
-        )
-      );
+      employees.push(new Engineer(res.name, res.id, res.email, res.github));
       employeeType();
     });
 }
@@ -114,17 +108,17 @@ function createIntern() {
       {
         type: "input",
         message: "Please enter intern name",
-        name: "internName",
+        name: "name",
       },
       {
         type: "input",
         message: "Please enter intern ID",
-        name: "internId",
+        name: "id",
       },
       {
         type: "input",
         message: "Please enter the intern's email",
-        name: "internEmail",
+        name: "email",
       },
       {
         type: "input",
@@ -133,27 +127,27 @@ function createIntern() {
       },
     ])
     .then((res) => {
-      employees.push(
-        new Intern(res.internName, res.internId, res.internEmail, res.school)
-      );
+      employees.push(new Intern(res.name, res.id, res.email, res.school));
       employeeType();
     });
 }
 
-function createHTML() {
-  try {
-    fs.writeFileSync("./output/team.html", render(employees));
-  } catch (err) {
-    if (err) throw err;
-  }
-}
-
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
+function createHTML() {
+  const employeeFile = render(employees);
+  fs.writeFile("./output/team.html", employeeFile, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log("File created");
+    }
+  });
+}
+
+createEmployee();
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the

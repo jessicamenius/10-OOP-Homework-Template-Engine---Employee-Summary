@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/jessicamenius/10homework#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "inquirer": "^7.2.0",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "path": "^0.12.7"
   }
 }
