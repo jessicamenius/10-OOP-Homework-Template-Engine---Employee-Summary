@@ -66,7 +66,7 @@ function employeeType() {
       if (res.role === "Intern") {
         createIntern();
       }
-      if (res.role === "Done") {
+      if (res.role === "Exit") {
         createHTML();
       }
     });
